@@ -13,11 +13,12 @@ for i in range(totalZonas):
 #seleccion de vecinos
 maxVecinos=8
 vecinos=[]
-print(vecinos)
 for i in range(totalZonas):
 	vecinos.append([])
 	for j in range(maxVecinos):
 		vecinos[i].append([])
 		vecinos[i][j].append(random.randint(1,totalZonas))
 print(vecinos)
-#print(totalZonas,zonas)
+for i in range(totalZonas):
+	print("zona ",zonas[i], "tiene de vecinos a: ",vecinos[i])
+print(totalZonas)
