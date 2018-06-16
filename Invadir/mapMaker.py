@@ -10,7 +10,6 @@ import random
 totalZonas=10
 zonas=[]
 zonas=list(range(totalZonas))
-print (zonas)
 #seleccion de vecinos
 maxVecinos=8
 vecinos=[]
@@ -26,25 +25,53 @@ for i in range(totalZonas):
 
 #hasta este punto el mapa es creado
 
-###distribucion de zonas
+###distribucion de zonas####
 zonaPlayers=[]
 cant=2
 tempzonas=zonas
+print("tempzonas ",tempzonas)
+print(zonas)
 #mzplayers=totalZonas/cant
 mzplayers=5
 zonaPlayers=[]
-print(mzplayers)
+
+###para dist inicial
+#cada jugador empieza con dados igual al triple de sus zonas
+#dados x zona
+dicePZ=[]
+dicePZ=list(range(totalZonas))
+print("dicePZ ",dicePZ)
+#distribucion de dados x zona
+
+
 for i in range(cant):
 	zonaPlayers.append([])
+#dados x jugador
+	dicePP=mzplayers*3
 	for j in range(mzplayers):
 		zonaPlayers[i].append([])
 		random.shuffle(tempzonas)
-#		print("lista actual: ",tempzonas)
-		zonaPlayers[i][j].append(tempzonas[0])
+		zonaPlayers[i][j].append(0)
+		zonaPlayers[i][j]=tempzonas[0]
 		tempzonas=tempzonas[1:]
+#inicia la asignacion de dados x zona y x jugador
+#		temp=random.randint(1,dicePP)
+		if(dicePP>0 and j!=(mzplayers)):
+			dicePZ[zonaPlayers[i][j]]=random.randint(1,dicePP)
+		else:
+			dicePZ[zonaPlayers[i][j]]=dicePP
+		dicePP=dicePP-dicePZ[zonaPlayers[i][j]]
+		print("la zona ",zonaPlayers[i][j]," tiene ",dicePZ[zonaPlayers[i][j]])
 	print("el jugador ",i," qedo con ",zonaPlayers[i])
+	print("dicePZ = ",dicePZ)
 
+####distribucion inicial de dados####
+#for i in range(cant):
+#	dicePP=mzplayers*3
+#	resto=dicePP
+#	for zone in zonaPlayers[i]:
+#		dicePZ[zone]=random.randint(1,resto)
+#		resto-=dicePZ[zone]
 
-
-
-
+#for i in range(totalZonas):
+#	print("cant de dados en ",i," es ",dicePZ[i])
