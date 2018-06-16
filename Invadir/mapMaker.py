@@ -18,8 +18,9 @@ for i in range(totalZonas):
 	for j in range(maxVecinos):
 		vecinos[i].append([])
 		flag=random.randint(1,10)
+		vecinos[i][j]=0
 		if(flag<7):
-			vecinos[i][j].append(random.randint(1,totalZonas))
+			vecinos[i][j]=random.randint(1,totalZonas)
 for i in range(totalZonas):
 	print(zonas[i], "tiene de vecinos a: ",vecinos[i])
 
@@ -56,15 +57,15 @@ for i in range(cant):
 		tempzonas=tempzonas[1:]
 #inicia la asignacion de dados x zona y x jugador
 #		temp=random.randint(1,dicePP)
-		if(dicePP>0 and j!=(mzplayers)):
+		if(dicePP>8):
+			dicePZ[zonaPlayers[i][j]]=random.randint(1,5)
+		elif(dicePP>0 and j!=mzplayers):
 			dicePZ[zonaPlayers[i][j]]=random.randint(1,dicePP)
 		else:
 			dicePZ[zonaPlayers[i][j]]=dicePP
 		dicePP=dicePP-dicePZ[zonaPlayers[i][j]]
-		print("la zona ",zonaPlayers[i][j]," tiene ",dicePZ[zonaPlayers[i][j]])
+		print("la zona ",zonaPlayers[i][j]," tiene ",dicePZ[zonaPlayers[i][j]], " dados y pertenece a player ",i)
 	print("el jugador ",i," qedo con ",zonaPlayers[i])
-	print("dicePZ = ",dicePZ)
-
 
 # atackar
 # 1) Seleccionar Tu Zona
