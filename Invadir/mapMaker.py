@@ -20,8 +20,8 @@ for i in range(totalZonas):
 		flag=random.randint(1,10)
 		if(flag<7):
 			vecinos[i][j].append(random.randint(1,totalZonas))
-#for i in range(totalZonas):
-#	print(zonas[i], "tiene de vecinos a: ",vecinos[i])
+for i in range(totalZonas):
+	print(zonas[i], "tiene de vecinos a: ",vecinos[i])
 
 #hasta este punto el mapa es creado
 
@@ -65,13 +65,22 @@ for i in range(cant):
 	print("el jugador ",i," qedo con ",zonaPlayers[i])
 	print("dicePZ = ",dicePZ)
 
-####distribucion inicial de dados####
-#for i in range(cant):
-#	dicePP=mzplayers*3
-#	resto=dicePP
-#	for zone in zonaPlayers[i]:
-#		dicePZ[zone]=random.randint(1,resto)
-#		resto-=dicePZ[zone]
 
-#for i in range(totalZonas):
-#	print("cant de dados en ",i," es ",dicePZ[i])
+# atackar
+# 1) Seleccionar Tu Zona
+# 2) Seleccionar vecino para atackar siempre y cuando no sea su zona
+# 3) Opcion de Finalizar Turno
+# Player -> zona -> vecinos -> tirar dados->  fin player repartir dados y cambiar de player o volver a selc zona
+NuevaZonas=[]
+fin =1
+ZonaSelc= 0
+zonatemp=0
+while (fin == 1):
+
+	for i in range (cant ):			# recordar que si gana sumar mazplayers obtenidas
+
+		print ("Player",i,"zonas disponibles",zonaPlayers[i])
+		ZonaSelec= input ("Elegir tu Zona para atackar")  # temporal
+		print ("vecinos ", vecinos[ZonaSelc])
+		for j in range (totalZonas):
+			print ("Zona")
