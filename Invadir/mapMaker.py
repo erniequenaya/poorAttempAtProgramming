@@ -72,16 +72,19 @@ for i in range(cant):
 # 2) Seleccionar vecino para atackar siempre y cuando no sea su zona
 # 3) Opcion de Finalizar Turno
 # Player -> zona -> vecinos -> tirar dados->  fin player repartir dados y cambiar de player o volver a selc zona
-NuevaZonas=[]
+
 fin =1
-ZonaSelc= 0
-zonatemp=0
-while (fin == 1):
-
-	for i in range (cant ):			# recordar que si gana sumar mazplayers obtenidas
-
-		print ("Player",i,"zonas disponibles",zonaPlayers[i])
-		ZonaSelec= input ("Elegir tu Zona para atackar")  # temporal
-		print ("vecinos ", vecinos[ZonaSelc])
-		for j in range (totalZonas):
-			print ("Zona")
+for i in range (cant ):
+	while fin==1 :
+		print ("Player ",i,"zonas disponibles",zonaPlayers[i])
+		ZonaSelec= int (input ("Elegir tu Zona para atackar") ) # temporal
+		for j in range (maxVecinos):
+				if (j == ZonaSelec) :
+						print ("tiene vecinos a " , vecinos[j])
+						temp=int (input( ("Atackar o cambiar zona (1/0) ")))
+						if (temp==1):
+							vecinoAtackar = int (input ("Seleccione vecino "))
+							fin=0
+						elif (temp==0):
+							fin=1
+print ("mi Zona ",ZonaSelec, "atacka ", vecinoAtackar)
