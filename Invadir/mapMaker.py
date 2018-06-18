@@ -76,11 +76,8 @@ def tirar_dados(cantDados):
 	for i in range (cantDados):
 		dado.append(random.choice(range(1,7)))
 		temp_mayor=dado[i]
-		print temp_mayor
 		if (temp_mayor > mayor):
 			mayor=temp_mayor
-			print mayor
-
 
 	return mayor
 
@@ -96,10 +93,18 @@ for i in range (cant ):
 						if (temp==1):
 							vecinoAtackar = int (input ("Seleccione vecino "))
 							#tirar DADOS
-							cantDados=dicePZ[ZonaSelec]
-							print("dado que atackka ",tirar_dados(cantDados))
-							cantDados = dicePZ[vecinoAtackar]
-							print("dado  atacado ",tirar_dados(cantDados))
+							dadoP1=tirar_dados(dicePZ[ZonaSelec])
+							dadoP2=tirar_dados(dicePZ[vecinoAtackar])
+							if (dadoP1 > dadoP2):
+								dicePZ[vecinoAtackar] = dicePZ[ZonaSelec]  - 1
+								zonaPlayers[i].append(vecinoAtackar)
+
+								dicePZ[ZonaSelec] = 1
+								print zonaPlayers
+
+							elif (dadoP1 == dadoP2 or dadoP1 < dadoP2):
+								dicePZ[ZonaSelec] = 1
+								print "Zona fue igual o menor"
 
 
 							fin=0
