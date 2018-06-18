@@ -76,13 +76,32 @@ for i in range (cant ):
 	while fin==1 :
 		print ("Player ",i,"zonas disponibles",zonaPlayers[i])
 		ZonaSelec= int (input ("Elegir tu Zona para atackar") ) # temporal
-		for j in range (maxVecinos):
-				if (j == ZonaSelec) :
-						print ("tiene vecinos a " , vecinos[j])
-						temp=int (input( ("Atackar o cambiar zona (1/0) ")))
-						if (temp==1):
-							vecinoAtackar = int (input ("Seleccione vecino "))
-							fin=0
-						elif (temp==0):
-							fin=1
+		for j in range (totalZonas):
+			if (j == ZonaSelec) :
+				print ("tiene vecinos a " , vecinos[j])
+				temp=int (input( ("Atackar o cambiar zona (1/0) ")))
+				if (temp==1):
+					vecinoAtackar = int (input ("Seleccione vecino "))
+					fin=0
+				elif (temp==0):
+					fin=1
 print ("mi Zona ",ZonaSelec, "atacka ", vecinoAtackar)
+
+
+###	DISTRIBUCION DE DADOS AL FINAL DEL TURNO	###
+#ESTE PROCESO DEBE ENCADENARSE A ATACAR Y EJECUTARSE CADA VEZ QUE EL PLAYER DECIDA TERMINAR SU TURNO
+
+#ES DECIR INMEDIATAMENTE DESPUES DE QUE fin=0
+
+#verificar el total de zonas del jugador
+#este numero se transformara en cantidad de dados a repartir al final del turno
+#los dados se repartiran al azar por las zonas del jugador
+#el control es cedido a la CPU o a un jugador respectivamente
+i=0
+reward=len(zonaPlayers[i])		### darle un multiplo a reward aumenta la cantidad a recompensar
+for W in range(reward):
+	dicePZ[random.choice(zonaPlayers[i])]+=1
+print(dicePZ)
+
+
+
