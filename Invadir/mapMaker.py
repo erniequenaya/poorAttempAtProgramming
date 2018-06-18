@@ -20,7 +20,7 @@ for i in range(totalZonas):
 		flag=random.randint(1,10)
 		vecinos[i][j]=0
 		if(flag<7):
-			vecinos[i][j]=random.randint(1,totalZonas)	
+			vecinos[i][j]=random.randint(1,totalZonas)
 
 for i in range(totalZonas):
 	print(zonas[i], "tiene de vecinos a: ",vecinos[i])
@@ -70,18 +70,38 @@ for i in range(cant):
 # 2) Seleccionar vecino para atackar siempre y cuando no sea su zona
 # 3) Opcion de Finalizar Turno
 # Player -> zona -> vecinos -> tirar dados->  fin player repartir dados y cambiar de player o volver a selc zona
+def tirar_dados(cantDados):
+	dado=[]
+	mayor=0
+	for i in range (cantDados):
+		dado.append(random.choice(range(1,7)))
+		temp_mayor=dado[i]
+		print temp_mayor
+		if (temp_mayor > mayor):
+			mayor=temp_mayor
+			print mayor
+
+
+	return mayor
 
 fin =1
 for i in range (cant ):
 	while fin==1 :
 		print ("Player ",i,"zonas disponibles",zonaPlayers[i])
 		ZonaSelec= int (input ("Elegir tu Zona para atackar") ) # temporal
-		for j in range (maxVecinos):
+		for j in range (totalZonas):
 				if (j == ZonaSelec) :
 						print ("tiene vecinos a " , vecinos[j])
 						temp=int (input( ("Atackar o cambiar zona (1/0) ")))
 						if (temp==1):
 							vecinoAtackar = int (input ("Seleccione vecino "))
+							#tirar DADOS
+							cantDados=dicePZ[ZonaSelec]
+							print("dado que atackka ",tirar_dados(cantDados))
+							cantDados = dicePZ[vecinoAtackar]
+							print("dado  atacado ",tirar_dados(cantDados))
+
+
 							fin=0
 						elif (temp==0):
 							fin=1
