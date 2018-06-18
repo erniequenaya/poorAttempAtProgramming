@@ -20,34 +20,30 @@ for i in range(totalZonas):
 		flag=random.randint(1,10)
 		vecinos[i][j]=0
 		if(flag<7):
-			vecinos[i][j]=random.randint(1,totalZonas)
+			vecinos[i][j]=random.randint(1,totalZonas)	
+
 for i in range(totalZonas):
 	print(zonas[i], "tiene de vecinos a: ",vecinos[i])
 
 #hasta este punto el mapa es creado
 
-###distribucion de zonas####
+###	PARA DISTRIBUCION INICIAL DE ZONAS POR JUGADOR	###
 zonaPlayers=[]
 cant=2
 tempzonas=zonas
-print("tempzonas ",tempzonas)
-print(zonas)
 #mzplayers=totalZonas/cant
 mzplayers=5
-zonaPlayers=[]
 
-###para dist inicial
+###	PARA DISTRIBUCION INICIAL DE DADOS POR ZONA	###
 #cada jugador empieza con dados igual al triple de sus zonas
 #dados x zona
 dicePZ=[]
 dicePZ=list(range(totalZonas))
 print("dicePZ ",dicePZ)
-#distribucion de dados x zona
-
 
 for i in range(cant):
 	zonaPlayers.append([])
-#dados x jugador
+#dados x jugador . los cuales corresponden a 15 por jugador
 	dicePP=mzplayers*3
 	for j in range(mzplayers):
 		zonaPlayers[i].append([])
@@ -56,16 +52,18 @@ for i in range(cant):
 		zonaPlayers[i][j]=tempzonas[0]
 		tempzonas=tempzonas[1:]
 #inicia la asignacion de dados x zona y x jugador
-#		temp=random.randint(1,dicePP)
 		if(dicePP>8):
 			dicePZ[zonaPlayers[i][j]]=random.randint(1,5)
-		elif(dicePP>0 and j!=mzplayers):
+		elif(dicePP>0 and j!=mzplayers-1):
 			dicePZ[zonaPlayers[i][j]]=random.randint(1,dicePP)
 		else:
 			dicePZ[zonaPlayers[i][j]]=dicePP
 		dicePP=dicePP-dicePZ[zonaPlayers[i][j]]
 		print("la zona ",zonaPlayers[i][j]," tiene ",dicePZ[zonaPlayers[i][j]], " dados y pertenece a player ",i)
 	print("el jugador ",i," qedo con ",zonaPlayers[i])
+
+###TERMINA LA ASIGNACION DE ZONAS Y DADOS POR ZONA INICIAL###
+
 
 # atackar
 # 1) Seleccionar Tu Zona
@@ -77,11 +75,10 @@ fin =1
 ZonaSelc= 0
 zonatemp=0
 while (fin == 1):
-
 	for i in range (cant ):			# recordar que si gana sumar mazplayers obtenidas
-
 		print ("Player",i,"zonas disponibles",zonaPlayers[i])
 		ZonaSelec= input ("Elegir tu Zona para atackar")  # temporal
 		print ("vecinos ", vecinos[ZonaSelc])
 		for j in range (totalZonas):
 			print ("Zona")
+
