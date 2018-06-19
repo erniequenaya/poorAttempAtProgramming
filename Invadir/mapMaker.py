@@ -20,7 +20,7 @@ for i in range(totalZonas):
 		flag=random.randint(1,10)
 		vecinos[i][j]=0
 		if(flag<7):
-			vecinos[i][j]=random.randint(1,totalZonas)	
+			vecinos[i][j]=random.randint(1,totalZonas-1)
 
 for i in range(totalZonas):
 	print(zonas[i], "tiene de vecinos a: ",vecinos[i])
@@ -64,12 +64,32 @@ for i in range(cant):
 
 ###TERMINA LA ASIGNACION DE ZONAS Y DADOS POR ZONA INICIAL###
 
+###	DISTRIBUCION DE DADOS AL FINAL DEL TURNO	###
+#ESTE PROCESO DEBE ENCADENARSE A ATACAR Y EJECUTARSE CADA VEZ QUE EL PLAYER DECIDA TERMINAR SU TURNO
+#ES DECIR INMEDIATAMENTE DESPUES DE QUE fin=0
+#verificar el total de zonas del jugador
+#este numero se transformara en cantidad de dados a repartir al final del turno
+#los dados se repartiran al azar por las zonas del jugador
+
+#reward=len(zonaPlayers[i])
+#for W in range(reward):
+#	dicePZ[random.choice(zonaPlayers[i])]+=1
 
 # atackar
 # 1) Seleccionar Tu Zona
 # 2) Seleccionar vecino para atackar siempre y cuando no sea su zona
 # 3) Opcion de Finalizar Turno
 # Player -> zona -> vecinos -> tirar dados->  fin player repartir dados y cambiar de player o volver a selc zona
+def tirar_dados(cantDados):
+	dado=[]
+	mayor=0
+	for i in range (cantDados):
+		dado.append(random.choice(range(1,7)))
+		temp_mayor=dado[i]
+		if (temp_mayor > mayor):
+			mayor=temp_mayor
+	return mayor
+
 
 fin =1
 for i in range (cant ):
@@ -82,26 +102,22 @@ for i in range (cant ):
 				temp=int (input( ("Atackar o cambiar zona (1/0) ")))
 				if (temp==1):
 					vecinoAtackar = int (input ("Seleccione vecino "))
+					#tirar DADOS
+					dadoP1=tirar_dados(dicePZ[ZonaSelec])
+					dadoP2=tirar_dados(dicePZ[vecinoAtackar])
+					print("el player ",i," ataca desde ",ZonaSelec ," con ",dadoP1," a ",vecinoAtackar," con ",dadoP2)
+					if (dadoP1 > dadoP2):
+						dicePZ[vecinoAtackar] = dicePZ[ZonaSelec]  - 1
+						zonaPlayers[i].append(vecinoAtackar)
+						dicePZ[ZonaSelec] = 1
+						print (zonaPlayers)
+					elif (dadoP1 == dadoP2 or dadoP1 < dadoP2):
+						dicePZ[ZonaSelec] = 1
+						print ("Zona fue igual o menor")
 					fin=0
 				elif (temp==0):
 					fin=1
 print ("mi Zona ",ZonaSelec, "atacka ", vecinoAtackar)
-
-
-###	DISTRIBUCION DE DADOS AL FINAL DEL TURNO	###
-#ESTE PROCESO DEBE ENCADENARSE A ATACAR Y EJECUTARSE CADA VEZ QUE EL PLAYER DECIDA TERMINAR SU TURNO
-
-#ES DECIR INMEDIATAMENTE DESPUES DE QUE fin=0
-
-#verificar el total de zonas del jugador
-#este numero se transformara en cantidad de dados a repartir al final del turno
-#los dados se repartiran al azar por las zonas del jugador
-#el control es cedido a la CPU o a un jugador respectivamente
-i=0
-reward=len(zonaPlayers[i])		### darle un multiplo a reward aumenta la cantidad a recompensar
-for W in range(reward):
-	dicePZ[random.choice(zonaPlayers[i])]+=1
-print(dicePZ)
 
 
 
