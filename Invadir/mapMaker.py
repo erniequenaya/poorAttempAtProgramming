@@ -115,9 +115,9 @@ for i in range (cant ):
 						dicePZ[ZonaSelec] = 1
 						print ("Zona fue igual o menor")
 					fin=0
+					reward=len(zonaPlayers[i])
+					for W in range(reward):
+						dicePZ[random.choice(zonaPlayers[i])]+=1
 				elif (temp==0):
 					fin=1
 print ("mi Zona ",ZonaSelec, "atacka ", vecinoAtackar)
-
-
-
