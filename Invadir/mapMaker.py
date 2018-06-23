@@ -106,18 +106,26 @@ for i in range (cant ):
 					dadoP1=tirar_dados(dicePZ[ZonaSelec])
 					dadoP2=tirar_dados(dicePZ[vecinoAtackar])
 					print("el player ",i," ataca desde ",ZonaSelec ," con ",dadoP1," a ",vecinoAtackar," con ",dadoP2)
+
 					if (dadoP1 > dadoP2):
+						for k in range (cant):
+							zonaPlayers[k].remove(vecinoAtackar)
+							print zonaPlayers[k]
 						dicePZ[vecinoAtackar] = dicePZ[ZonaSelec]  - 1
 						zonaPlayers[i].append(vecinoAtackar)
 						dicePZ[ZonaSelec] = 1
-						print (zonaPlayers)
+
 					elif (dadoP1 == dadoP2 or dadoP1 < dadoP2):
 						dicePZ[ZonaSelec] = 1
 						print ("Zona fue igual o menor")
+
 					fin=0
 					reward=len(zonaPlayers[i])
 					for W in range(reward):
 						dicePZ[random.choice(zonaPlayers[i])]+=1
+
+					for i in range (cant):
+						print zonaPlayers[i]
 				elif (temp==0):
 					fin=1
 print ("mi Zona ",ZonaSelec, "atacka ", vecinoAtackar)
