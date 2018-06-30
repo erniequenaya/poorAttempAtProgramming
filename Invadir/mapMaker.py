@@ -80,7 +80,7 @@ for i in range(cant):
 # 2) Seleccionar vecino para atackar siempre y cuando no sea su zona
 # 3) Opcion de Finalizar Turno
 # Player -> zona -> vecinos -> tirar dados->  fin player repartir dados y cambiar de player o volver a selc zona
-def tirar_dados(cantDados):
+def tirar_dadosORIGINAL(cantDados):
 	dado=[]
 	mayor=0
 	for i in range (cantDados):
@@ -90,42 +90,47 @@ def tirar_dados(cantDados):
 			mayor=temp_mayor
 	return mayor
 
+def tirar_dados(cantDados):
+    ataque=0
+    for i in range (cantDados):
+        ataque=ataque+random.choice(range(1,7))
+    return ataque
+
 
 fin =1
 for i in range (cant ):
-	while fin==1 :
-		print ("Player ",i,"zonas disponibles",zonaPlayers[i])
-		ZonaSelec= int (input ("Elegir tu Zona para atackar") ) # temporal
-		for j in range (totalZonas):
-			if (j == ZonaSelec) :
-				print ("tiene vecinos a " , vecinos[j])
-				temp=int (input( ("Atackar o cambiar zona (1/0) ")))
-				if (temp==1):
-					vecinoAtackar = int (input ("Seleccione vecino "))
-					#tirar DADOS
-					dadoP1=tirar_dados(dicePZ[ZonaSelec])
-					dadoP2=tirar_dados(dicePZ[vecinoAtackar])
-					print("el player ",i," ataca desde ",ZonaSelec ," con ",dadoP1," a ",vecinoAtackar," con ",dadoP2)
-
-					if (dadoP1 > dadoP2):
-						for k in range (cant):
-							zonaPlayers[k].remove(vecinoAtackar)
-							print zonaPlayers[k]
-						dicePZ[vecinoAtackar] = dicePZ[ZonaSelec]  - 1
-						zonaPlayers[i].append(vecinoAtackar)
-						dicePZ[ZonaSelec] = 1
-
-					elif (dadoP1 == dadoP2 or dadoP1 < dadoP2):
-						dicePZ[ZonaSelec] = 1
-						print ("Zona fue igual o menor")
-
-					fin=0
-					reward=len(zonaPlayers[i])
-					for W in range(reward):
-						dicePZ[random.choice(zonaPlayers[i])]+=1
-
-					for i in range (cant):
-						print zonaPlayers[i]
-				elif (temp==0):
-					fin=1
-print ("mi Zona ",ZonaSelec, "atacka ", vecinoAtackar)
+    while fin==1 :
+        print ("Player ",i,"zonas disponibles",zonaPlayers[i])
+        ZonaSelec=int(input("Elegir tu Zona para atackar"))
+        for j in range (totalZonas):
+            if (j == ZonaSelec) :
+                print ("tiene vecinos a " , vecinos[j])
+                temp=int (input( ("Atackar o cambiar zona (1/0) ")))
+                if (temp==1):
+                    vecinoAtackar = int (input ("Seleccione vecino "))
+                    dadoP1=tirar_dados(dicePZ[ZonaSelec])
+                    dadoP2=tirar_dados(dicePZ[vecinoAtackar])
+                    print("el player ",i," ataca desde ",ZonaSelec ," con ",dadoP1," a ",vecinoAtackar," con ",dadoP2)
+                    if (dadoP1 > dadoP2):
+                        for k in range (cant):
+                            if(vecinoAtackar in zonaPlayers[k]):
+                                zonaPlayers[k].remove(vecinoAtackar)
+                        dicePZ[vecinoAtackar] = dicePZ[ZonaSelec]  - 1
+                        zonaPlayers[i].append(vecinoAtackar)
+                        dicePZ[ZonaSelec] = 1
+                    elif (dadoP1 == dadoP2 or dadoP1 < dadoP2):
+                        dicePZ[ZonaSelec] = 1
+                        print ("Zona fue igual o menor")
+                        #fin=0
+                    reward=len(zonaPlayers[i])
+                    for W in range(reward):
+                        dicePZ[random.choice(zonaPlayers[i])]+=1
+                    for Q in range (cant):
+                        print ("el player ",Q," qedo con zonas:",zonaPlayers[Q]," estas tienen")
+                        for P in zonaPlayers[Q]:
+                            print("zona ",P," tiene ",dicePZ[P]," dados")
+                elif (temp==0):
+                    fin=0
+                if(len(zonaPlayers[i]) == totalZonas):
+                    print("felicitacion, player ",i," ha ganado")
+                    fin=0
